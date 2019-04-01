@@ -8,22 +8,12 @@
 #su -l ec2-user -c 'nohup aws_start_suicidal_queue.bash --shutdown &'
 #	I think that this should be better and allow for multiple commands.
 #sudo -i -u ec2-user sh <<-EOF
+
 sudo -i -u ec2-user bash <<-EOF
 	env > initial_env
 	echo \$PWD > testing_PWD
+	aws s3 s3://herv/awsqueue.cnf ~/.awsqueue.cnf
+	chmod 400 ~/.awsqueue.cnf
 	nohup aws_start_suicidal_queue.bash --shutdown &
 EOF
-
-
-
-#	Create completely new or sed in-place?
-
-#	cat > ~/.awsqueue.cnf << EOF
-#	[mysql]
-#	database=QueueDbName
-#	[client]
-#	user=******
-#	password******
-#	port=3306
-#	host=queuedbinstanceid.cawdxh1rrx1p.us-east-1.rds.amazonaws.com
 
